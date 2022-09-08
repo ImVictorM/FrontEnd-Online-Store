@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
-import { getCategories, getProductsFromCategoryAndQuery } from './services/api';
+import Home from './Component/Home';
+// import { getCategories, getProductsFromCategoryAndQuery } from './services/api';
 
 class App extends Component {
   render() {
-    getCategories();
-    getProductsFromCategoryAndQuery();
     return (
-      <div />
+      <BrowserRouter>
+        <Switch>
+          <Route path="/" component={ Home } />
+        </Switch>
+      </BrowserRouter>
     );
   }
 }
