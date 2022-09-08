@@ -1,12 +1,34 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { getCategories } from '../services/api';
 
 class Home extends React.Component {
+  state = {
+    categorie: [],
+  };
+
+  async componentDidMount() {
+    const categories = await getCategories();
+    this.setState({ categorie: categories });
+  }
+
   render() {
+    const { categorie } = this.state;
     return (
       <div>
+        <section>
+          <ul>
+            {categorie.map(({ name, id }) => (
+              <li key={ id }>
+                <label htmlFor="categorie">
+                  <input type="radio" id="categorie" data-testid="category" />
+                  { name }
+                </label>
+              </li>))}
+          </ul>
+        </section>
         <p data-testid="home-initial-message">
-          Digite algum termo de pesquisa ou escolha uma categoria.
+          Digite algum termo de pesquisa ou esculha uma categoria.
         </p>
         <Link data-testid="shopping-cart-button" to="/Cart">Cart</Link>
       </div>
