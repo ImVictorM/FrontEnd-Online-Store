@@ -103,8 +103,13 @@ class Home extends React.Component {
                           key={ id }
                           data-testid="product"
                         >
+                          <Link
+                            data-testid="product-detail-link"
+                            to={ `/description/${id}` }
+                          >
+                            <img src={ thumbnail } alt="produto" />
+                          </Link>
                           <p>{title}</p>
-                          <img src={ thumbnail } alt="produto" />
                           <p>{price}</p>
                           <ButtonCart
                             title={ title }
