@@ -22,9 +22,18 @@ class Home extends React.Component {
     });
   };
 
-  searchByQuery = async () => {
-    const { searchField } = this.state;
-    const response = await getProductsFromCategoryAndQuery(null, searchField);
+  searchByQuery = async ({ target }) => {
+    const { type } = target;
+    // this.setState({ products: [] });
+
+    let response = null;
+
+    if (type === "radio") {
+      response = await getProductsFromCategoryAndQuery(target.id);
+    } else {
+      const { searchField } = this.state;
+      response = await getProductsFromCategoryAndQuery(null, searchField);
+    }
     const products = response.results;
     this.setState({
       products: [...products],
@@ -39,10 +48,10 @@ class Home extends React.Component {
         <section>
           <ul>
             {categorie.map(({ name, id }) => (
-              <li key={ id }>
-                <label htmlFor="categorie">
-                  <input type="radio" id="categorie" data-testid="category" />
-                  { name }
+              <li key={id}>
+                <label htmlFor={id}>
+                  <input type="radio" id={id} name="categoria" data-testid="category" onClick={this.searchByQuery} />
+                  {name}
                 </label>
               </li>))}
           </ul>
@@ -55,12 +64,12 @@ class Home extends React.Component {
           name="searchField"
           type="text"
           data-testid="query-input"
-          onChange={ this.changeHandle }
+          onChange={this.changeHandle}
         />
         <button
           type="button"
           data-testid="query-button"
-          onClick={ this.searchByQuery }
+          onClick={this.searchByQuery}
         >
           Buscar
         </button>
@@ -74,9 +83,9 @@ class Home extends React.Component {
                     products.map((item) => {
                       const { id, title, price, thumbnail } = item;
                       return (
-                        <div key={ id } data-testid="product">
+                        <div key={id} data-testid="product">
                           <p>{title}</p>
-                          <img src={ thumbnail } alt="produto" />
+                          <img src={thumbnail} alt="produto" />
                           <p>{price}</p>
                         </div>
                       );
