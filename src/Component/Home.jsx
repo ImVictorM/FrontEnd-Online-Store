@@ -22,9 +22,18 @@ class Home extends React.Component {
     });
   };
 
-  searchByQuery = async () => {
-    const { searchField } = this.state;
-    const response = await getProductsFromCategoryAndQuery(null, searchField);
+  searchByQuery = async ({ target }) => {
+    const { type } = target;
+    // this.setState({ products: [] });
+
+    let response = null;
+
+    if (type === 'radio') {
+      response = await getProductsFromCategoryAndQuery(target.id);
+    } else {
+      const { searchField } = this.state;
+      response = await getProductsFromCategoryAndQuery(null, searchField);
+    }
     const products = response.results;
     this.setState({
       products: [...products],
@@ -40,9 +49,15 @@ class Home extends React.Component {
           <ul>
             {categorie.map(({ name, id }) => (
               <li key={ id }>
-                <label htmlFor="categorie">
-                  <input type="radio" id="categorie" data-testid="category" />
-                  { name }
+                <label htmlFor={ id }>
+                  <input
+                    type="radio"
+                    id={ id }
+                    name="categoria"
+                    data-testid="category"
+                    onClick={ this.searchByQuery }
+                  />
+                  {name}
                 </label>
               </li>))}
           </ul>
