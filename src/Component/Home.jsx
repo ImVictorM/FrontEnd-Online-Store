@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { getProductsFromCategoryAndQuery, getCategories } from '../services/api';
-import { getProductsFromCategoryAndQuery } from '../services/api';
 
 class Home extends React.Component {
   state = {
@@ -12,11 +11,9 @@ class Home extends React.Component {
   };
 
   async componentDidMount() {
-    const categories = await getCategories(); // pega requisição da API
+    const categories = await getCategories();
     this.setState({ categorie: categories });
   }
-
-  };
 
   changeHandle = ({ target }) => {
     const { name, value } = target;
@@ -37,7 +34,6 @@ class Home extends React.Component {
 
   render() {
     const { categorie, products, searchPerformed } = this.state;
-    const { products, searchPerformed } = this.state;
     return (
       <div>
         <section>
@@ -97,5 +93,4 @@ class Home extends React.Component {
     );
   }
 }
-
 export default Home;
