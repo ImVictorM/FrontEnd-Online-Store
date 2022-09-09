@@ -11,7 +11,7 @@ class Home extends React.Component {
   };
 
   async componentDidMount() {
-    const categories = await getCategories();
+    const categories = await getCategories(); // pega requisição da API
     this.setState({ categorie: categories });
   }
 
