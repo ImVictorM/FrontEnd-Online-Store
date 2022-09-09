@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { getCategories, getProductsFromCategoryAndQuery } from '../services/api';
+import { getProductsFromCategoryAndQuery, getCategories } from '../services/api';
 
 class Home extends React.Component {
   state = {
@@ -33,7 +33,7 @@ class Home extends React.Component {
   };
 
   render() {
-    const { products, searchPerformed, categorie } = this.state;
+    const { categorie, products, searchPerformed } = this.state;
     return (
       <div>
         <section>
