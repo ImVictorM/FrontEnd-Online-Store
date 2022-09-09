@@ -1,13 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { getProductsFromCategoryAndQuery } from '../services/api';
+import { getProductsFromCategoryAndQuery, getCategories } from '../services/api';
 
 class Home extends React.Component {
   state = {
     searchField: '',
     products: [],
     searchPerformed: false,
+    categorie: [],
   };
+
+  async componentDidMount() {
+    const categories = await getCategories();
+    this.setState({ categorie: categories });
+  }
 
   changeHandle = ({ target }) => {
     const { name, value } = target;
@@ -27,9 +33,20 @@ class Home extends React.Component {
   };
 
   render() {
-    const { products, searchPerformed } = this.state;
+    const { categorie, products, searchPerformed } = this.state;
     return (
       <div>
+        <section>
+          <ul>
+            {categorie.map(({ name, id }) => (
+              <li key={ id }>
+                <label htmlFor="categorie">
+                  <input type="radio" id="categorie" data-testid="category" />
+                  { name }
+                </label>
+              </li>))}
+          </ul>
+        </section>
         <p data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>
@@ -76,5 +93,4 @@ class Home extends React.Component {
     );
   }
 }
-
 export default Home;
