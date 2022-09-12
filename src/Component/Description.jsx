@@ -17,9 +17,18 @@ export default class Description extends Component {
 
   render() {
     const { currentProduct } = this.state;
+    const { title, thumbnail, price } = currentProduct;
     console.log(currentProduct);
     return (
-      <div />
+      <div>
+        <p data-testid="product-detail-name">{title}</p>
+        <img
+          data-testid="product-detail-image"
+          src={ thumbnail }
+          alt="product"
+        />
+        <p data-testid="product-detail-price">{price}</p>
+      </div>
     );
   }
 }
