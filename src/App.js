@@ -11,7 +11,16 @@ class App extends Component {
     cart: [],
   };
 
-  addCart = async ({ target }) => {
+  componentDidMount() {
+    const savedItems = JSON.parse(localStorage.getItem('Cart'));
+    if (savedItems !== null) {
+      this.setState({
+        cart: [...savedItems],
+      });
+    }
+  }
+
+  addCart = ({ target }) => {
     const id = target.getAttribute('id');
     const thumbnail = target.getAttribute('thumbnail');
     const title = target.getAttribute('title');
@@ -24,11 +33,13 @@ class App extends Component {
       quantity,
       id,
     }];
-    await this.setState((beforeState) => ({
-      cart: beforeState.cart.concat(product),
-    }));
-    const { cart } = this.state;
-    localStorage.setItem('Cart', JSON.stringify(cart));
+    this.setState((beforeState) => ({
+      // cart: beforeState.cart.concat(product),
+      cart: [...beforeState.cart, ...product],
+    }), () => {
+      const { cart } = this.state;
+      localStorage.setItem('Cart', JSON.stringify(cart));
+    });
   };
 
   render() {

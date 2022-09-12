@@ -1,34 +1,23 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import CartItem from './CartItem';
 
 export default class Cart extends React.Component {
   render() {
-    const { cart } = this.props;
+    const cart = JSON.parse(localStorage.getItem('Cart'));
     return (
       <div>
-        {cart.length === 0 ? (
+        {cart === null ? (
           <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
         ) : (
           <ul>
-            {cart.map(({ id, title, thumbnail, price, quantity }) => (
-              <li key={ id }>
-                <p
-                  data-testid="shopping-cart-product-name"
-                >
-                  { title }
-                </p>
-                <img src={ thumbnail } alt="Thumbnail" />
-                <p>
-                  Valor:
-                  {' '}
-                  { price }
-                </p>
-                <p
-                  data-testid="shopping-cart-product-quantity"
-                >
-                  { quantity }
-                </p>
-              </li>
+            {cart.map(({ id, title, thumbnail, price }) => (
+              <CartItem
+                key={ id }
+                id={ id }
+                title={ title }
+                thumbnail={ thumbnail }
+                price={ price }
+              />
             ))}
           </ul>
         )}
@@ -36,12 +25,3 @@ export default class Cart extends React.Component {
     );
   }
 }
-Cart.propTypes = {
-  cart: PropTypes.arrayOf(PropTypes.shape({
-    title: PropTypes.string,
-    thumbnail: PropTypes.string,
-    price: PropTypes.number,
-    quantity: PropTypes.number,
-    id: PropTypes.string,
-  })).isRequired,
-};
