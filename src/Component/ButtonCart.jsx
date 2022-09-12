@@ -25,7 +25,7 @@ ButtonCart.propTypes = {
   addCart: propTypes.func.isRequired,
   id: propTypes.string.isRequired,
   thumbnail: propTypes.string.isRequired,
-  price: propTypes.string.isRequired,
+  price: propTypes.number.isRequired,
   title: propTypes.string.isRequired,
-  quantity: propTypes.string.isRequired,
+  quantity: propTypes.number.isRequired,
 };
