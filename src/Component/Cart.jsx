@@ -12,7 +12,6 @@ export default class Cart extends React.Component {
           <ul>
             {cart.map(({ id, title, thumbnail, price, quantity }) => (
               <li key={ id }>
-                {console.log(title)}
                 <p
                   data-testid="shopping-cart-product-name"
                 >
