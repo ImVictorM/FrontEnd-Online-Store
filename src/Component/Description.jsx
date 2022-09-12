@@ -38,6 +38,7 @@ export default class Description extends Component {
             quantity={ 1 }
             price={ price }
             type="button"
+            data-testid="product-detail-add-to-cart"
             onClick={ addCart }
           >
             Adicionar ao carrinho
