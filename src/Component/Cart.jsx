@@ -6,7 +6,7 @@ export default class Cart extends React.Component {
     const cart = JSON.parse(localStorage.getItem('Cart'));
     return (
       <div>
-        {cart.length === 0 ? (
+        {cart === null ? (
           <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
         ) : (
           <ul>
