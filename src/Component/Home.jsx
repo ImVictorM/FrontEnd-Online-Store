@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import propTypes from 'prop-types';
 import { getProductsFromCategoryAndQuery, getCategories } from '../services/api';
+import ButtonCart from './ButtonCart';
 
 class Home extends React.Component {
   state = {
@@ -24,7 +26,6 @@ class Home extends React.Component {
 
   searchByQuery = async ({ target }) => {
     const { type } = target;
-    // this.setState({ products: [] });
 
     let response = null;
 
@@ -42,6 +43,7 @@ class Home extends React.Component {
   };
 
   render() {
+    const { addCart } = this.props;
     const { categorie, products, searchPerformed } = this.state;
     return (
       <div>
@@ -87,12 +89,31 @@ class Home extends React.Component {
                 products.length !== 0
                   ? (
                     products.map((item) => {
-                      const { id, title, price, thumbnail } = item;
+                      const {
+                        id,
+                        title,
+                        price,
+                        thumbnail,
+                      } = item;
+                      const quantity = 1;
                       return (
-                        <div key={ id } data-testid="product">
+                        <div
+                          id={ id }
+                          quantity={ quantity }
+                          key={ id }
+                          data-testid="product"
+                        >
                           <p>{title}</p>
                           <img src={ thumbnail } alt="produto" />
                           <p>{price}</p>
+                          <ButtonCart
+                            title={ title }
+                            id={ id }
+                            thumbnail={ thumbnail }
+                            quantity={ quantity }
+                            price={ price }
+                            addCart={ addCart }
+                          />
                         </div>
                       );
                     })
@@ -108,4 +129,8 @@ class Home extends React.Component {
     );
   }
 }
+Home.propTypes = {
+  addCart: propTypes.func.isRequired,
+};
+
 export default Home;

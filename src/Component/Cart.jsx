@@ -1,22 +1,42 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default class ShoppingCart extends React.Component {
-  state = {
-    carrinho: [],
-  };
-
+export default class Cart extends React.Component {
   render() {
-    const { carrinho } = this.state;
+    const { cart } = this.props;
     return (
       <div>
-        {carrinho.length === 0 ? (
+        {cart.length === 0 ? (
           <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
         ) : (
-          <ol>
-            {carrinho.map((item, index) => <li key={ index }>{ item }</li>)}
-          </ol>
+          <ul>
+            {cart.map(({ id, title, thumbnail, price, quantity }) => (
+              <li key={ id }>
+                {console.log(title)}
+                <p
+                  data-testid="shopping-cart-product-name"
+                >
+                  { title }
+                </p>
+                <img src={ thumbnail } alt="Thumbnail" />
+                <p>
+                  Valor:
+                  {' '}
+                  { price }
+                </p>
+                <p
+                  data-testid="shopping-cart-product-quantity"
+                >
+                  { quantity }
+                </p>
+              </li>
+            ))}
+          </ul>
         )}
       </div>
     );
   }
 }
+Cart.propTypes = {
+  cart: PropTypes.shape.isRequired,
+};
